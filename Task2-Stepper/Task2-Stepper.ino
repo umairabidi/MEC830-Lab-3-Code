@@ -1,20 +1,21 @@
 #include <Stepper.h>
-#define STEPS 2048
 
-Stepper stepper(STEPS, 8, 7, 6, 5);
-
-int potentiometer = A0;
+// two button inputs
 int Button1 = A3;
 int Button2 = A5;
 
-int previous = 0;
+// Stepper motor instance of class Stepper
+Stepper stepper(2048, 8, 6, 7, 5);
 
 void setup() {
-	stepper.setSpeed(300);
+	stepper.setSpeed(20);
 }
 
 void loop() {
-	int val = analogRead(potentiometer);
-	stepper.step(val - previous);
-	previous = val;
+	if(!digitalRead(Button1)){
+		stepper.step(256);
+	}
+	if(!digitalRead(Button2)){
+		stepper.step(-256);
+	}
 }
