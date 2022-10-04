@@ -13,15 +13,19 @@ void setup() {
 }
 
 void loop() {
-
 	if(!digitalRead(Button1)){
 		servoPos+=45;
+		if (servoPos >= 180){
+			servoPos = 180;
+		}
 		servo.write(servoPos);
 	}
 	else if(!digitalRead(Button2)){
 		servoPos-=45;
+		if (servoPos <= 0){
+			servoPos = 0;
+		}
 		servo.write(servoPos);
 	}
-	
-	delay(200);	
+  delay(200);
 }

@@ -13,41 +13,35 @@ Stepper stepper(2048, 8, 6, 7, 5);
 
 void setup(){
 	servo.attach(servoPin);
-	servo.write(servoPos);
-	Serial.begin(9600);
+	servo.write(90);
+	stepper.setSpeed(1);
+	pinMode(VRx, INPUT);
+	pinMode(VRy, INPUT);
 }
 
 void loop(){
 	int xPos = analogRead(VRx);
 	int yPos = analogRead(VRy);
-	
-	/*
-	Serial.print("X position: ");
-	Serial.println(xPos);
-	Serial.print("Y position: ");
-	Serial.println(yPos);
-	*/
 
 	// Servo position control
 	// Map the x position on the joystick
 	// from 0-1023	(ADC read value)
 	// to 0-180		(angle)
 	servo.write((int)xPos/5.68);
-
+	
 	// Stepper Motor speed control
 	// Linearly ramps up speed with potentiometer reading
-	// Dead zone between 502 and 522
-	// Min speed is 0
+	// Dead zone between 524 and 544
+	// Min speed is 1
 	// Max speed is 15
-	if (yPos >= 522){
-		stepper.setSpeed((int)15.0/(1023-522)*(yPos-522));
+	
+	if (yPos >= 544){
+		stepper.setSpeed((long)(14.0/(1023-544)*(yPos-544)+1));
 		stepper.step(10);
 	}
-	else if (yPos <= 502){
-		stepper.setSpeed((int)(-15.0/502)*yPos+15);
+	else if (yPos <= 524){
+		stepper.setSpeed((long)((-14.0/524)*yPos+15));
 		stepper.step(-10);
 	}
-	else {
-		stepper.setSpeed(0);
-	}
+	
 }

@@ -8,7 +8,7 @@ int Button2 = A5;
 Stepper stepper(2048, 8, 6, 7, 5);
 
 void setup() {
-	stepper.setSpeed(20);
+	stepper.setSpeed(10);
 }
 
 void loop() {
