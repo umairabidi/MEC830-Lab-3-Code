@@ -45,3 +45,6 @@ void loop(){
 	}
 	
 }
+
+// https://www.desmos.com/calculator/imgfdm8m7g
+// https://www.desmos.com/calculator/13wfsbbr0q
